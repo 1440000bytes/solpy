@@ -5,9 +5,14 @@ import pexpect
 
 app = Flask(__name__)
 
-@app.route("/account")
+@app.after_request
+def apply_cors(response):
+    response.headers["Access-Control-Allow-Origin"] = "*"
+    return response
 
-def getaddress():  
+
+@app.route("/account")
+def getaddress():
 
     index = request.args.get('index')
     seed = request.args.get('seed')
@@ -31,7 +36,6 @@ def getaddress():
        
 
 @app.route("/create")
-
 def create():
     mnemo = Mnemonic("english")
     words = mnemo.generate(strength=256)
