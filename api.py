@@ -25,7 +25,7 @@ def getaddress():
     temp = str(child.read())
     stemp = temp.replace("b' \\r\\n\\r\\n","")
     rtemp = stemp.replace("\\r\\n'","")            
-    child.interact()
+    child.interact() # Use child.expect(pexpect.EOF) if running in the background or cloud
 
     address = jsonify({        
         "address": rtemp
